@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div class="name">{{ greeting(name) }}</div>
+ <div>{{ greet }}</div>
+ <div>{{ name }}</div>
+ <button 
+ class="btn btn-primary"
+ @click="updateName()"
+ >Click</button>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import{ref} from 'vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+let name = ref('Nayoung');
+
+const greeting = (name) =>{
+return 'hello,'+name;
+};
+
+const greet = greeting(name.value);
+
+const updateName = () =>{
+  name.value = 'Park Nayoung';
+  console.log(name);
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.name{
+  color : pink;
 }
 </style>
