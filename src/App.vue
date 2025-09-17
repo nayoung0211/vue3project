@@ -1,28 +1,60 @@
 <template>
- <div class="name">{{ greeting(name) }}</div>
- <div>{{ greet }}</div>
- <div>{{ name }}</div>
- <button 
- class="btn btn-primary"
- @click="updateName()"
- >Click</button>
+  <div v-show="toggle">true</div>
+  <div v-shoe="!toggle">false</div>
+  <button @click="onToggle">Toggle</button>
+  <div class="container">
+    <h2>To-Do List</h2>
+    <form class="d-flex"
+    @submit.prevent="onSubmit"
+    >
+      <div class="flex-grow-1 mr-2">
+      <input 
+      class = "form-control"
+        type ="text" 
+        v-model="todo"
+        placeholder="Type new to-do"
+      >
+      </div>
+      <div>
+      <button 
+        class="btn btn-primary"
+        type="submit"
+      > Add
+      </button>
+      </div>
+    </form>
+    <div 
+    v-for ="todo in todos"
+    :key="todo.id"
+    class="card mt-2">
+    <div class="card-body p-2">
+      {{ todo.subject}}
+    </div>
+  </div>
+  </div>
 </template>
 
 <script setup>
 import{ref} from 'vue';
 
-let name = ref('Nayoung');
+const toggle = ref(false);
+const todo = ref('');
+const todos = ref([
+  {id:1,subject:'휴대폰 사기'},
+  {id:2, subject:'장보기'},
+]);
 
-const greeting = (name) =>{
-return 'hello,'+name;
+const onSubmit = () =>{
+  todos.value.push({
+    id:Date.now(),
+    subject: todo.value
+  });
 };
 
-const greet = greeting(name.value);
-
-const updateName = () =>{
-  name.value = 'Park Nayoung';
-  console.log(name);
+const onToggle = () => {
+  toggle.value = !toggle.value;
 };
+
 </script>
 
 <style>
