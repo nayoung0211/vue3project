@@ -1,64 +1,58 @@
 <template>
-  <div v-show="toggle">true</div>
-  <div v-shoe="!toggle">false</div>
-  <button @click="onToggle">Toggle</button>
   <div class="container">
     <h2>To-Do List</h2>
-    <form class="d-flex"
-    @submit.prevent="onSubmit"
-    >
-      <div class="flex-grow-1 mr-2">
-      <input 
-      class = "form-control"
-        type ="text" 
-        v-model="todo"
-        placeholder="Type new to-do"
-      >
-      </div>
-      <div>
-      <button 
-        class="btn btn-primary"
-        type="submit"
-      > Add
-      </button>
-      </div>
-    </form>
-    <div 
-    v-for ="todo in todos"
-    :key="todo.id"
-    class="card mt-2">
-    <div class="card-body p-2">
-      {{ todo.subject}}
+    <TodoSimpleForm @add-todo="addTodo" />
+    
+    <div v-if="!todos.length">
+      추가된 Todo가 없습니다
     </div>
-  </div>
+
+    <TodoList :todos="todos" 
+    @toggle-todo="toggleTodo"
+    @delete-todo="deleteTodo"
+    />
   </div>
 </template>
 
-<script setup>
-import{ref} from 'vue';
+<script>
+import { ref } from 'vue';
+import TodoSimpleForm from './components/TodoSimpleForm.vue';
+import TodoList from './components/TodoList.vue';
 
-const toggle = ref(false);
-const todo = ref('');
-const todos = ref([
-  {id:1,subject:'휴대폰 사기'},
-  {id:2, subject:'장보기'},
-]);
+export default {
+  components: {
+    TodoSimpleForm,
+    TodoList,
+  },
+  setup() {
+  
+    const todos = ref([]);
+    
 
-const onSubmit = () =>{
-  todos.value.push({
-    id:Date.now(),
-    subject: todo.value
-  });
-};
+    const addTodo = (todo) => {
+      console.log(todo);
+      todos.value.push(todo);
+    };
+    const toggleTodo = (index) =>{
+      todos.value[index].completed = !todos.value[index].completed;
+    };
+    const deleteTodo = (index) => {
+      todos.value.splice(index, 1);
+    };
 
-const onToggle = () => {
-  toggle.value = !toggle.value;
-};
-
+    return { 
+      todos,
+      addTodo,
+      deleteTodo,
+      toggleTodo,
+    };
+  }
+}
 </script>
 
 <style>
-.name{
-  color : pink;
-}
+  .todo {
+    color: gray;
+    text-decoration: line-through;
+  }
 </style>
