@@ -1,58 +1,24 @@
 <template>
-  <div class="container">
-    <h2>To-Do List</h2>
-    <TodoSimpleForm @add-todo="addTodo" />
-    
-    <div v-if="!todos.length">
-      추가된 Todo가 없습니다
-    </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <router-link class="navbar-brand" :to="{ name: 'Home'}">
+      Kossie Coder
+    </router-link>
 
-    <TodoList :todos="todos" 
-    @toggle-todo="toggleTodo"
-    @delete-todo="deleteTodo"
-    />
-  </div>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <router-link class="nav-link" :to="{ name: 'Todos'}">
+          Todos
+        </router-link>
+      </li>
+    </ul>
+  </nav>
+  <router-view/>
 </template>
 
 <script>
-import { ref } from 'vue';
-import TodoSimpleForm from './components/TodoSimpleForm.vue';
-import TodoList from './components/TodoList.vue';
-
 export default {
-  components: {
-    TodoSimpleForm,
-    TodoList,
-  },
-  setup() {
-  
-    const todos = ref([]);
-    
-
-    const addTodo = (todo) => {
-      console.log(todo);
-      todos.value.push(todo);
-    };
-    const toggleTodo = (index) =>{
-      todos.value[index].completed = !todos.value[index].completed;
-    };
-    const deleteTodo = (index) => {
-      todos.value.splice(index, 1);
-    };
-
-    return { 
-      todos,
-      addTodo,
-      deleteTodo,
-      toggleTodo,
-    };
-  }
 }
 </script>
 
 <style>
-  .todo {
-    color: gray;
-    text-decoration: line-through;
-  }
 </style>
