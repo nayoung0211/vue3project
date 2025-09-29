@@ -1,8 +1,8 @@
 {
   "todos": [
     {
-      "subject": "clean my room",
-      "completed": false,
+      "subject": "에엥",
+      "completed": true,
       "id": "2"
     },
     {
@@ -46,18 +46,13 @@
       "completed": false
     },
     {
-      "id": "1eeb",
-      "subject": "11",
-      "completed": false
+      "subject": "111",
+      "completed": true,
+      "id": "1eeb"
     },
     {
       "id": "b566",
       "subject": "12",
-      "completed": false
-    },
-    {
-      "id": "0fa9",
-      "subject": "55",
       "completed": false
     }
   ]

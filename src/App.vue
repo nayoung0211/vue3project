@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand" :to="{ name: 'Home'}">
-      Kossie Coder
+      Nayoung
     </router-link>
 
     <ul class="navbar-nav mr-auto">
@@ -12,7 +12,9 @@
       </li>
     </ul>
   </nav>
+  <div class="container">
   <router-view/>
+  </div>
 </template>
 
 <script>
